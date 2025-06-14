@@ -11,7 +11,7 @@ MUTATION_RATE = 0.3
 
 # Model Architecture
 IN_DIM = 4
-HIDDEN_1 = 16
+HIDDEN_1 = 8
 OUT_DIM = 1
 
 THRESHOLD = 0.5

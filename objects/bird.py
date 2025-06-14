@@ -69,4 +69,15 @@ class Bird(pygame.sprite.Sprite):
         if output >= configs.THRESHOLD:
             self.flap = 0
             self.flap -= 6
+    
+    def get_gene(self):
+        return torch.concat([self.model.layer_1.weight.flatten(), self.model.layer_2.weight.flatten()])
+    
+    def transform_gene_to_weight(self, gene: torch.Tensor):
+        in_dim, hidden_dim, out_dim = configs.IN_DIM, configs.HIDDEN_1, configs.OUT_DIM
+        layer1_weight = gene[:in_dim*hidden_dim].reshape((hidden_dim, in_dim))
+        layer2_weight = gene[in_dim*hidden_dim:].reshape((out_dim, hidden_dim))
+        with torch.no_grad():
+            self.model.layer_1.weight = torch.nn.Parameter(layer1_weight)
+            self.model.layer_2.weight = torch.nn.Parameter(layer2_weight)
 

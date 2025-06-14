@@ -51,6 +51,9 @@ for generation in range(configs.NUM_GENERATION):
 
     birds, game_start_message, score = create_sprites(generation, configs.NUM_INDIVIDUAL)
 
+    for b in birds:
+        print(b.name, b.get_gene().shape)
+
     running = True
     gameover = False
     gamestarted = False
