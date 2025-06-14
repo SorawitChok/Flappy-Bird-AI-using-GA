@@ -63,9 +63,22 @@ while running:
                 sprites.empty()
                 birds, game_start_message, score = create_sprites(configs.NUM_INDIVIDUAL)
 
+        # if not gameover:
+        #     for bird in birds:
+        #         bird.handle_event(event)
         if not gameover:
+            obs_x = 999
+            obs_y = 999
+            for sprite in sprites:
+                if type(sprite) is Column:
+                    if sprite.rect.x < obs_x:
+                        obs_x = sprite.rect.x
+                        obs_y = sprite.rect.y
+                    else:
+                        obs_x = 0
+                        obs_y = 0
             for bird in birds:
-                bird.handle_event(event)
+                bird.infer_event(bird.rect.x, bird.rect.y, obs_x, obs_y)
             
 
     screen.fill(0)
