@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 class FlappyBirdModel(nn.Module):
     def __init__(self, input_dim: int, hidden_1: int, output_dim: int, allow_bias: bool = False):
@@ -10,4 +11,4 @@ class FlappyBirdModel(nn.Module):
     def forward(self, input: torch.Tensor):
         x = self.layer_1(input)
         x = self.layer_2(x)
-        return x
+        return F.sigmoid(x)

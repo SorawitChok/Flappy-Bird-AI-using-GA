@@ -1,10 +1,12 @@
 import pygame.sprite
-
+import torch
 import assets
 import configs
 from layer import Layer
 from objects.column import Column
 from objects.floor import Floor
+from model import FlappyBirdModel
+import numpy as np
 
 
 class Bird(pygame.sprite.Sprite):
@@ -25,6 +27,8 @@ class Bird(pygame.sprite.Sprite):
         self.flap = 0
 
         self.name = name
+
+        self.model = FlappyBirdModel(configs.IN_DIM, configs.HIDDEN_1, configs.OUT_DIM)
 
         self.score = 0
 
@@ -56,3 +60,13 @@ class Bird(pygame.sprite.Sprite):
     
     def increase_score(self):
         self.score += 1
+
+    def infer_event(self, bird_x, bird_y, obstacle_x, obstacle_y):
+        self.model.eval()
+        with torch.no_grad():
+            output = self.model(torch.tensor(np.array([bird_x, bird_y, obstacle_x, obstacle_y]), dtype=torch.float32))
+
+        if output >= configs.THRESHOLD:
+            self.flap = 0
+            self.flap -= 6
+
