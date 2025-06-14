@@ -3,7 +3,11 @@ SCREEN_HEIGHT = 512
 FPS = 60
 GRAVITY = 0.4
 
+# Genetic Algorithm Parameters
+NUM_GENERATION = 3
 NUM_INDIVIDUAL = 3
+NUM_ELITE = 4
+MUTATION_RATE = 0.3
 
 # Model Architecture
 IN_DIM = 4
