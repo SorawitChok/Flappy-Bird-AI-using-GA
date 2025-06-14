@@ -12,6 +12,8 @@ from objects.score import Score
 
 from model import FlappyBirdModel
 
+import time
+
 pygame.init()
 
 screen = pygame.display.set_mode((configs.SCREEN_WIDTH, configs.SCREEN_HEIGHT))
@@ -21,6 +23,7 @@ pygame.display.set_caption("Flappy Bird Game v1.0.2")
 img = pygame.image.load('assets/icons/red_bird.png')
 pygame.display.set_icon(img)
 
+Font=pygame.font.SysFont('timesnewroman',  18)
 
 clock = pygame.time.Clock()
 column_create_event = pygame.USEREVENT
@@ -33,61 +36,80 @@ assets.load_audios()
 
 sprites = pygame.sprite.LayeredUpdates()
 
-
-def create_sprites(num_indiviual):
+def create_sprites(generation, num_indiviual):
     Background(0, sprites)
     Background(1, sprites)
     Floor(0, sprites)
     Floor(1, sprites)
-    birds = [Bird(-50, 50+30*i, f"inv_{i}", sprites) for i in range(num_indiviual)]
+    birds = [Bird(-50, 50+30*i, f"gen_{generation}_inv_{i}", sprites) for i in range(num_indiviual)]
 
     return birds, GameStartMessage(sprites), Score(sprites)
 
+for generation in range(configs.NUM_GENERATION):
 
-birds, game_start_message, score = create_sprites(configs.NUM_INDIVIDUAL)
+    sprites.empty()
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    birds, game_start_message, score = create_sprites(generation, configs.NUM_INDIVIDUAL)
+
+    running = True
+    gameover = False
+    gamestarted = False
+
+    if generation > 0:
+        game_start_message.kill()
+        pygame.time.set_timer(column_create_event, 1500)
+        gamestarted = True
+    else:
+        gamestarted = False    
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == column_create_event:
+                Column(sprites)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and not gamestarted and not gameover and generation == 0:
+                    gamestarted = True
+                    game_start_message.kill()
+                    pygame.time.set_timer(column_create_event, 1500)
+                if event.key == pygame.K_ESCAPE and gameover:
+                    gameover = False
+                    gamestarted = False
+                    sprites.empty()
+                    birds, game_start_message, score = create_sprites(generation, configs.NUM_INDIVIDUAL)
+
+            if not gameover:
+                for bird in birds:
+                    bird.handle_event(event)
+                
+
+        screen.fill(0)
+
+        sprites.draw(screen)
+
+        letter1 = Font.render(f"Generation {generation}", False, (0,0,0))
+        text_generation = screen.blit(letter1,(170, 3))
+
+        if gamestarted and not gameover:
+            sprites.update()
+        
+        if all([bird.check_collision(sprites) for bird in birds]) and not gameover:
+            gameover = True
+            gamestarted = False
+            GameOverMessage(sprites)
+            pygame.time.set_timer(column_create_event, 0)
+            assets.play_audio("hit")
+
+            time.sleep(0.5) 
             running = False
-        if event.type == column_create_event:
-            Column(sprites)
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and not gamestarted and not gameover:
-                gamestarted = True
-                game_start_message.kill()
-                pygame.time.set_timer(column_create_event, 1500)
-            if event.key == pygame.K_ESCAPE and gameover:
-                gameover = False
-                gamestarted = False
-                sprites.empty()
-                birds, game_start_message, score = create_sprites(configs.NUM_INDIVIDUAL)
 
-        if not gameover:
-            for bird in birds:
-                bird.handle_event(event)
-            
+        for sprite in sprites:
+            if type(sprite) is Column and sprite.is_passed():
+                score.value += 1
+                assets.play_audio("point")
 
-    screen.fill(0)
-
-    sprites.draw(screen)
-
-    if gamestarted and not gameover:
-        sprites.update()
-    
-    if all([bird.check_collision(sprites) for bird in birds]) and not gameover:
-        gameover = True
-        gamestarted = False
-        GameOverMessage(sprites)
-        pygame.time.set_timer(column_create_event, 0)
-        assets.play_audio("hit")
-
-    for sprite in sprites:
-        if type(sprite) is Column and sprite.is_passed():
-            score.value += 1
-            assets.play_audio("point")
-
-    pygame.display.flip()
-    clock.tick(configs.FPS)
+        pygame.display.flip()
+        clock.tick(configs.FPS)
 
 pygame.quit()
