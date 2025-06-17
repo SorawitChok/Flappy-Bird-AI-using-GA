@@ -32,6 +32,8 @@ class Bird(pygame.sprite.Sprite):
 
         self.score = 0
 
+        self.still_alive = True
+
         super().__init__(*groups)
 
     def update(self):
