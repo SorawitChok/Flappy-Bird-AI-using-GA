@@ -2,6 +2,7 @@ import configs
 import numpy as np
 import random
 import torch
+import heapq
 
 def roulette_wheel_selection(population):
     # Computes the totallity of the population fitness
@@ -42,5 +43,13 @@ def single_point_crossover(chromosome_1: torch.Tensor, chromosome_2: torch.Tenso
     new_chromosome_2 = torch.concat([frac_p2_front, frac_p1_back])
 
     return new_chromosome_1, new_chromosome_2
+
+def elitism(population):
+    fitness_list = [bird.score for bird in population]
+    max_val = heapq.nlargest(configs.NUM_ELITE, fitness_list)
+    max_ind = [fitness_list.index(i) for i in max_val]
+    elite = [population[ind] for ind in max_ind]
+    
+    return elite
 
 
