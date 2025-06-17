@@ -51,9 +51,6 @@ for generation in range(configs.NUM_GENERATION):
 
     birds, game_start_message, score = create_sprites(generation, configs.NUM_INDIVIDUAL)
 
-    for b in birds:
-        print(b.name, b.get_gene().shape)
-
     running = True
     gameover = False
     gamestarted = False
@@ -109,8 +106,13 @@ for generation in range(configs.NUM_GENERATION):
 
         if gamestarted and not gameover:
             sprites.update()
+
+        for bird in birds:
+            if bird.check_collision(sprites):
+                bird.still_alive = False
+                bird.kill()
         
-        if all([bird.check_collision(sprites) for bird in birds]) and not gameover:
+        if all([not bird.still_alive for bird in birds]) and not gameover:
             gameover = True
             gamestarted = False
             GameOverMessage(sprites)
@@ -120,12 +122,28 @@ for generation in range(configs.NUM_GENERATION):
             time.sleep(0.5) 
             running = False
 
+        # if all([bird.check_collision(sprites) for bird in birds]) and not gameover:
+        #     gameover = True
+        #     gamestarted = False
+        #     GameOverMessage(sprites)
+        #     pygame.time.set_timer(column_create_event, 0)
+        #     assets.play_audio("hit")
+
+        #     time.sleep(0.5) 
+        #     running = False
+
         for sprite in sprites:
             if type(sprite) is Column and sprite.is_passed():
                 score.value += 1
+                for bird in birds:
+                    if bird.still_alive:
+                        bird.increase_score()
                 assets.play_audio("point")
 
         pygame.display.flip()
         clock.tick(configs.FPS)
+    
+    for bird in birds:
+        print(bird.get_gene())
 
 pygame.quit()
