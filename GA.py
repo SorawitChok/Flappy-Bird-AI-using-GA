@@ -22,7 +22,7 @@ def mutation(chromosome_tensor: torch.Tensor):
     for gene in chromosome:
         if random.random() <= configs.MUTATION_RATE:
             # Apply Gaussian mutation
-            mutated_gene = gene + np.random.normal(0, configs.MUTATION_STD)
+            mutated_gene = np.random.normal(loc=gene, scale=configs.MUTATION_STD)
             new_chromosome.append(mutated_gene)
         else:
             new_chromosome.append(gene)
