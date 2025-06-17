@@ -41,7 +41,7 @@ def create_sprites(generation, num_indiviual):
     Background(1, sprites)
     Floor(0, sprites)
     Floor(1, sprites)
-    birds = [Bird(-50, 50+30*i, f"gen_{generation}_inv_{i}", sprites) for i in range(num_indiviual)]
+    birds = [Bird(-50, 50, f"gen_{generation}_inv_{i}", sprites) for i in range(num_indiviual)]
 
     return birds, GameStartMessage(sprites), Score(sprites)
 
