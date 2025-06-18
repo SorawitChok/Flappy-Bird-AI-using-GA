@@ -70,10 +70,10 @@ class Bird(pygame.sprite.Sprite):
     def get_fitness(self):
         return self.score + self.alive_time / 1000
 
-    def infer_event(self, bird_x, bird_y, obstacle_x, obstacle_y_top, obstacle_y_bottom, obstacle_x_end):
+    def infer_event(self, bird_x, bird_y, obstacle_x, obstacle_y_top, obstacle_y_bottom, obstacle_x_end, y_velocity):
         self.model.eval()
         with torch.no_grad():
-            output = self.model(torch.tensor(np.array([bird_x, bird_y, obstacle_x, obstacle_y_top, obstacle_y_bottom, obstacle_x_end]), dtype=torch.float32))
+            output = self.model(torch.tensor(np.array([bird_x, bird_y, obstacle_x, obstacle_y_top, obstacle_y_bottom, obstacle_x_end, y_velocity]), dtype=torch.float32))
 
         if output >= configs.THRESHOLD:
             self.flap = 0
