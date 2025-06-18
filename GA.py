@@ -6,9 +6,9 @@ import heapq
 
 def roulette_wheel_selection(population):
     # Computes the totallity of the population fitness
-    population_fitness = sum([bird.score for bird in population])
+    population_fitness = sum([bird.get_fitness() for bird in population])
     # Computes for each chromosome the probability
-    chromosome_probabilities = [bird.score /
+    chromosome_probabilities = [bird.get_fitness() /
                                 population_fitness for bird in population]
     index_only = list(range(configs.NUM_INDIVIDUAL))
     # Selects one chromosome based on the computed probabilities
@@ -45,7 +45,7 @@ def single_point_crossover(chromosome_1: torch.Tensor, chromosome_2: torch.Tenso
     return new_chromosome_1, new_chromosome_2
 
 def elitism(population):
-    fitness_list = [bird.score for bird in population]
+    fitness_list = [bird.get_fitness() for bird in population]
     max_val = heapq.nlargest(configs.NUM_ELITE, fitness_list)
     max_ind = [fitness_list.index(i) for i in max_val]
     elite = [population[ind] for ind in max_ind]
