@@ -48,7 +48,7 @@ def create_sprites(generation, num_indiviual):
     Background(1, sprites)
     Floor(0, sprites)
     Floor(1, sprites)
-    birds = [Bird(-50, 50, f"gen_{generation}_inv_{i}", sprites) for i in range(num_indiviual)]
+    birds = [Bird(50, 50, f"gen_{generation}_inv_{i}", sprites) for i in range(num_indiviual)]
 
     return birds, GameStartMessage(sprites), Score(sprites)
 
@@ -57,8 +57,6 @@ for generation in range(configs.NUM_GENERATION):
     sprites.empty()
 
     birds, game_start_message, score = create_sprites(generation, configs.NUM_INDIVIDUAL)
-
-    Column(sprites)
 
     # Genetic Operation
     if generation > 0:
@@ -184,5 +182,8 @@ for generation in range(configs.NUM_GENERATION):
     for bird in birds:
         generation_dict[bird.name] = bird
     gene_pool[generation] = generation_dict
+    all_fitness = [ind.get_fitness() for ind in list(gene_pool[generation].values())]
+    fitness_avg = sum(all_fitness) / len(all_fitness)
+    print("Average Fitness:", fitness_avg)
 
 pygame.quit()
