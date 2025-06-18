@@ -32,6 +32,8 @@ class Bird(pygame.sprite.Sprite):
 
         self.score = 0
 
+        self.alive_time = 0
+
         self.still_alive = True
 
         super().__init__(*groups)
@@ -42,6 +44,8 @@ class Bird(pygame.sprite.Sprite):
 
         self.flap += configs.GRAVITY
         self.rect.y += self.flap
+
+        self.alive_time += 1
 
         if self.rect.x < 50:
             self.rect.x += 3
@@ -63,10 +67,13 @@ class Bird(pygame.sprite.Sprite):
     def increase_score(self):
         self.score += 1
 
-    def infer_event(self, bird_x, bird_y, obstacle_x, obstacle_y):
+    def get_fitness(self):
+        return self.score + self.alive_time / 1000
+
+    def infer_event(self, bird_x, bird_y, obstacle_x, obstacle_y, obstacle_x_end, obstacle_y_top):
         self.model.eval()
         with torch.no_grad():
-            output = self.model(torch.tensor(np.array([bird_x, bird_y, obstacle_x, obstacle_y]), dtype=torch.float32))
+            output = self.model(torch.tensor(np.array([bird_x, bird_y, obstacle_x, obstacle_y, obstacle_x_end, obstacle_y_top]), dtype=torch.float32))
 
         if output >= configs.THRESHOLD:
             self.flap = 0
