@@ -132,8 +132,7 @@ for generation in range(configs.NUM_GENERATION):
                 for bird in birds:
                     bird.infer_event(bird.rect.x, bird.rect.y, obs_x, obs_y+t_h, obs_y+t_h+g, obs_x+52, bird.flap)
                     if bird.score > high_score:
-                        high_score = bird.score
-                
+                        high_score = bird.score                
 
         screen.fill(0)
 
