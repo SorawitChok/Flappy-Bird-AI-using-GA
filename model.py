@@ -10,5 +10,6 @@ class FlappyBirdModel(nn.Module):
     
     def forward(self, input: torch.Tensor):
         x = self.layer_1(input)
+        x = F.sigmoid(x)
         x = self.layer_2(x)
         return F.sigmoid(x)
