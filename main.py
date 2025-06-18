@@ -36,6 +36,8 @@ running = True
 gameover = False
 gamestarted = False
 
+high_score = 0
+
 assets.load_sprites()
 assets.load_audios()
 
@@ -129,7 +131,8 @@ for generation in range(configs.NUM_GENERATION):
 
                 for bird in birds:
                     bird.infer_event(bird.rect.x, bird.rect.y, obs_x, obs_y+t_h, obs_y+t_h+g, obs_x+52, bird.flap)
-                
+                    if bird.score > high_score:
+                        high_score = bird.score                
 
         screen.fill(0)
 
@@ -151,7 +154,9 @@ for generation in range(configs.NUM_GENERATION):
                 pygame.draw.line(screen, (255,0,0), (bird.rect.x, bird.rect.y), (obs_x, obs_y+t_h+g))
 
         letter1 = Font.render(f"Generation {generation}", False, (0,0,0))
-        text_generation = screen.blit(letter1,(170, 3))
+        letter2 = Font.render(f"Highscore {high_score}", False, (0,0,255))
+        screen.blit(letter1,(170, 3))
+        screen.blit(letter2,(180, 20))
 
         if gamestarted and not gameover:
             sprites.update()
