@@ -48,7 +48,7 @@ def create_sprites(generation, num_indiviual):
     Background(1, sprites)
     Floor(0, sprites)
     Floor(1, sprites)
-    birds = [Bird(-50, 50, f"gen_{generation}_inv_{i}", sprites) for i in range(num_indiviual)]
+    birds = [Bird(50, 50, f"gen_{generation}_inv_{i}", sprites) for i in range(num_indiviual)]
 
     return birds, GameStartMessage(sprites), Score(sprites)
 
@@ -57,8 +57,6 @@ for generation in range(configs.NUM_GENERATION):
     sprites.empty()
 
     birds, game_start_message, score = create_sprites(generation, configs.NUM_INDIVIDUAL)
-
-    Column(sprites)
 
     # Genetic Operation
     if generation > 0:
@@ -116,26 +114,41 @@ for generation in range(configs.NUM_GENERATION):
                     sprites.empty()
                     birds, game_start_message, score = create_sprites(generation, configs.NUM_INDIVIDUAL)
 
-            # if not gameover:
-            #     for bird in birds:
-            #         bird.handle_event(event)
+
             if not gameover and event.type == model_inference_event:
-                
-                column_sprites = [(col.rect.x, col.rect.y) for col in sprites if type(col) is Column and col.rect.x > -50]
+
+                column_sprites = [(col.rect.x, col.rect.y, col.sprite_rect.height, col.gap) for col in sprites if type(col) is Column and col.rect.x > 50 - 52]
                 if column_sprites:
                     min_col = min(column_sprites, key=operator.itemgetter(0))
-                    obs_x, obs_y = min_col
+                    obs_x, obs_y, t_h, g = min_col
                 else:
-                    obs_x = -999
-                    obs_y = -999
+                    obs_x = -50
+                    obs_y = configs.SCREEN_HEIGHT // 2
+                    t_h = 0
+                    g = 0
 
                 for bird in birds:
-                    bird.infer_event(bird.rect.x, bird.rect.y, obs_x, obs_y, obs_x + 52, obs_y - 100)
+                    bird.infer_event(bird.rect.x, bird.rect.y, obs_x, obs_y+t_h, obs_y+t_h+g, obs_x+52)
                 
 
         screen.fill(0)
 
         sprites.draw(screen)
+
+        column_sprites = [(col.rect.x, col.rect.y, col.sprite_rect.height, col.gap) for col in sprites if type(col) is Column and col.rect.x > 50 - 52]
+        if column_sprites:
+            min_col = min(column_sprites, key=operator.itemgetter(0))
+            obs_x, obs_y, t_h, g = min_col
+        else:
+            obs_x = -50
+            obs_y = configs.SCREEN_HEIGHT // 2
+            t_h = 0
+            g = 0
+
+        for bird in birds:
+            if bird.still_alive:
+                pygame.draw.line(screen, (255,0,0), (bird.rect.x, bird.rect.y), (obs_x, obs_y+t_h))
+                pygame.draw.line(screen, (255,0,0), (bird.rect.x, bird.rect.y), (obs_x, obs_y+t_h+g))
 
         letter1 = Font.render(f"Generation {generation}", False, (0,0,0))
         text_generation = screen.blit(letter1,(170, 3))
