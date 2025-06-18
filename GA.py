@@ -44,6 +44,20 @@ def single_point_crossover(chromosome_1: torch.Tensor, chromosome_2: torch.Tenso
 
     return new_chromosome_1, new_chromosome_2
 
+def layer_wise_crossover(chromosome_1: torch.Tensor, chromosome_2: torch.Tensor):
+    split_layer = configs.IN_DIM * configs.HIDDEN_1
+    
+    input_gene_1 = chromosome_1[:split_layer]
+    hidden_gene_1 = chromosome_1[split_layer:]
+    input_gene_2 = chromosome_2[:split_layer] 
+    hidden_gene_2 = chromosome_2[split_layer:]
+
+    new_chromosome_1 = torch.concat([input_gene_1, hidden_gene_2])
+    new_chromosome_2 = torch.concat([input_gene_2, hidden_gene_1])
+
+    return new_chromosome_1, new_chromosome_2
+
+
 def elitism(population):
     fitness_list = [bird.get_fitness() for bird in population]
     max_val = heapq.nlargest(configs.NUM_ELITE, fitness_list)
