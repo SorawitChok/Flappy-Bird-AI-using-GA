@@ -76,7 +76,7 @@ for generation in range(configs.NUM_GENERATION):
 
         count_cross = 0
         for indvidual_1, indvidual_2 in pairs:
-            new_gene_1, new_gene_2 = GA.single_point_crossover(indvidual_1.get_gene(), indvidual_2.get_gene())
+            new_gene_1, new_gene_2 = GA.layer_wise_crossover(indvidual_1.get_gene(), indvidual_2.get_gene())
             new_gene_1 = GA.mutation(new_gene_1)
             new_gene_2 = GA.mutation(new_gene_2)
 
@@ -92,7 +92,7 @@ for generation in range(configs.NUM_GENERATION):
     if generation > 0:
         game_start_message.kill()
         pygame.time.set_timer(column_create_event, 1500)
-        pygame.time.set_timer(model_inference_event, 250)
+        pygame.time.set_timer(model_inference_event, 100)
         gamestarted = True
     else:
         gamestarted = False    
@@ -128,7 +128,7 @@ for generation in range(configs.NUM_GENERATION):
                     g = 0
 
                 for bird in birds:
-                    bird.infer_event(bird.rect.x, bird.rect.y, obs_x, obs_y+t_h, obs_y+t_h+g, obs_x+52)
+                    bird.infer_event(bird.rect.x, bird.rect.y, obs_x, obs_y+t_h, obs_y+t_h+g, obs_x+52, bird.flap)
                 
 
         screen.fill(0)
