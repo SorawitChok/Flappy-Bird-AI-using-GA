@@ -18,6 +18,8 @@ import random
 
 import operator
 
+import numpy as np
+
 pygame.init()
 
 screen = pygame.display.set_mode((configs.SCREEN_WIDTH, configs.SCREEN_HEIGHT))
@@ -132,7 +134,9 @@ for generation in range(configs.NUM_GENERATION):
                 for bird in birds:
                     bird.infer_event(bird.rect.x, bird.rect.y, obs_x, obs_y+t_h, obs_y+t_h+g, obs_x+52, bird.flap)
                     if bird.score > high_score:
-                        high_score = bird.score                
+                        high_score = bird.score
+                        numpy_gene = bird.get_gene().detach().numpy()
+                        np.save(f".\\model_weights\\{bird.name}.npy", numpy_gene)                
 
         screen.fill(0)
 
@@ -175,16 +179,6 @@ for generation in range(configs.NUM_GENERATION):
 
             time.sleep(0.5) 
             running = False
-
-        # if all([bird.check_collision(sprites) for bird in birds]) and not gameover:
-        #     gameover = True
-        #     gamestarted = False
-        #     GameOverMessage(sprites)
-        #     pygame.time.set_timer(column_create_event, 0)
-        #     assets.play_audio("hit")
-
-        #     time.sleep(0.5) 
-        #     running = False
 
         for sprite in sprites:
             if type(sprite) is Column and sprite.is_passed():
