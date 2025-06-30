@@ -25,9 +25,14 @@ In this repository, we develop an AI that outperforms the average human at Flapp
 [2] Darwin, C. (1861). [On the origin of species by means of natural selection, or, the preservation of favoured races in the struggle for life](https://books.google.co.th/books?hl=en&lr=&id=AEC20ISHJkQC&oi=fnd&pg=PR13&dq=On+the+Origin+of+Species+by+Means+of+Natural+Selection,+Or,+The+Preservation+of+Favoured+Races+in+the+Struggle+for+Life&ots=nqU5awrT1d&sig=eBtjWMoZnqlvrV3JyYrxoWbdGq0&redir_esc=y#v=onepage&q=On%20the%20Origin%20of%20Species%20by%20Means%20of%20Natural%20Selection%2C%20Or%2C%20The%20Preservation%20of%20Favoured%20Races%20in%20the%20Struggle%20for%20Life&f=false). _J. Murray_.
 
 ## License
+This code is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ## Citation
 
 ## Contibuting
 
+Feel free to fork this repository and submit pull requests. Any contributions are welcome!
+
 ## Authors
+
+This repository was created by [Sorawit Chokphantavee](https://github.com/SorawitChok) and [Sirawit Chokphantavee](https://github.com/SirawitC).
