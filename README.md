@@ -16,6 +16,8 @@ In this repository, we develop an AI that outperforms the average human at Flapp
 
 ## Introduction
 
+Flappy Bird was one of the most popular and well-known mobile games a decade ago. It was first introduced in 2013 by Vietnamese programmer Dong Nguyen, the same year that Apple announced the colourful iPhone 5C. This game features late 90s style arcade art with a yellow pixelate bird that the player needs to control and navigate through the small opening between the green Mario-like pipe to get a score. The ultimate aim of people playing this game is to apparently get higher scores than their peers and pals, making this game competitive and somewhat addictive.
+
 ## Setup
 
 ## References
@@ -25,6 +27,7 @@ In this repository, we develop an AI that outperforms the average human at Flapp
 [2] Darwin, C. (1861). [On the origin of species by means of natural selection, or, the preservation of favoured races in the struggle for life](https://books.google.co.th/books?hl=en&lr=&id=AEC20ISHJkQC&oi=fnd&pg=PR13&dq=On+the+Origin+of+Species+by+Means+of+Natural+Selection,+Or,+The+Preservation+of+Favoured+Races+in+the+Struggle+for+Life&ots=nqU5awrT1d&sig=eBtjWMoZnqlvrV3JyYrxoWbdGq0&redir_esc=y#v=onepage&q=On%20the%20Origin%20of%20Species%20by%20Means%20of%20Natural%20Selection%2C%20Or%2C%20The%20Preservation%20of%20Favoured%20Races%20in%20the%20Struggle%20for%20Life&f=false). _J. Murray_.
 
 ## License
+
 This code is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ## Citation
