@@ -7,6 +7,7 @@ In this repository, we develop an AI that outperforms the average human at Flapp
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Agent Objectives](#agent-objectives)
 - [Setup](#setup)
 - [References](#references)
 - [License](#License)
@@ -17,6 +18,21 @@ In this repository, we develop an AI that outperforms the average human at Flapp
 ## Introduction
 
 Flappy Bird was one of the most popular and well-known mobile games a decade ago. It was first introduced in 2013 by Vietnamese programmer Dong Nguyen, the same year that Apple announced the colourful iPhone 5C. This game features late 90s style arcade art with a yellow pixelate bird that the player needs to control and navigate through the small opening between the green Mario-like pipe to get a score. The ultimate aim of people playing this game is to apparently get higher scores than their peers and pals, making this game competitive and somewhat addictive.
+
+## Game Objectives
+
+- **Goal**: Navigate the bird through an endless series of pipes by controlling its vertical movement.
+- **Score Mechanism**:
+  - +1 point for each pair of pipes successfully passed.
+- **Control**:
+  - The bird flaps upward each time the player (or AI agent) triggers a flap.
+  - Gravity continuously pulls the bird downward.
+- **Terminate Conditions**:
+  - The bird collides with a pipe (obstacle).
+  - The bird falls to the ground (touches the floor).
+- **Challenge**:
+  - Requires precise timing and coordination to pass through narrow gaps between pipes.
+  - Speed and pipe positioning vary to increase difficulty over time.
 
 ## Setup
 
