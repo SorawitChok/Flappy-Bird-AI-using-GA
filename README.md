@@ -18,6 +18,19 @@ In this repository, we develop an AI that outperforms the average human at Flapp
 
 Flappy Bird was one of the most popular and well-known mobile games a decade ago. It was first introduced in 2013 by Vietnamese programmer Dong Nguyen, the same year that Apple announced the colourful iPhone 5C. This game features late 90s style arcade art with a yellow pixelate bird that the player needs to control and navigate through the small opening between the green Mario-like pipe to get a score. The ultimate aim of people playing this game is to apparently get higher scores than their peers and pals, making this game competitive and somewhat addictive.
 
+
+## Genetic Algorithm
+
+### Initial Population
+
+### Fitness Function
+
+### Selection
+
+### Genetic Operators
+
+### Termination
+
 ## Setup
 
 ## References
