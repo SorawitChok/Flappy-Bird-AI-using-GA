@@ -2,7 +2,7 @@
 
 In this repository, we develop an AI that outperforms the average human at Flappy Bird by leveraging the artificial neural network (ANN) architecture created with PyTorch and training it using Genetic Algorithm (GA) [[1]](#references). This evolutionary approach mimics the principle of natural selection coined by Charles Darwin [[2]](#references), making our AI learn and adapt to the environment with uncertainty and randomness, just like a species does in nature. This repository will guide you through several fascinating mechanisms and algorithms behind this process, including genetic crossover, mutation, and elitism (Survival of the fittest).
 
-> This repository was developed based the [Flappy Bird Game](https://github.com/mehmetemineker/flappy-bird), which is the github repository that create a clone of the Flappy Bird game using Pygame library.
+> This repository was developed based on the [Flappy Bird Game](https://github.com/mehmetemineker/flappy-bird), which is the github repository that create a clone of the Flappy Bird game using Pygame library.
 
 ## Table of Contents
 
