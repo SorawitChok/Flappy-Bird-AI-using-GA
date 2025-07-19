@@ -7,7 +7,7 @@ In this repository, we develop an AI that outperforms the average human at Flapp
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Agent Objectives](#agent-objectives)
+- [Game Objectives](#game-objectives)
 - [Setup](#setup)
 - [References](#references)
 - [License](#License)
@@ -33,7 +33,6 @@ Flappy Bird was one of the most popular and well-known mobile games a decade ago
 - **Challenge**:
   - Requires precise timing and coordination to pass through narrow gaps between pipes.
   - Speed and pipe positioning vary to increase difficulty over time.
-
 
 ## Genetic Algorithm
 
