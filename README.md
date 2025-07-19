@@ -34,6 +34,19 @@ Flappy Bird was one of the most popular and well-known mobile games a decade ago
   - Requires precise timing and coordination to pass through narrow gaps between pipes.
   - Speed and pipe positioning vary to increase difficulty over time.
 
+
+## Genetic Algorithm
+
+### Initial Population
+
+### Fitness Function
+
+### Selection
+
+### Genetic Operators
+
+### Termination
+
 ## Setup
 
 ## References
