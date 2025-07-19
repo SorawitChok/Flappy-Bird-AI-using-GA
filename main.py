@@ -136,7 +136,7 @@ for generation in range(configs.NUM_GENERATION):
                     if bird.score > high_score:
                         high_score = bird.score
                         numpy_gene = bird.get_gene().detach().numpy()
-                        np.save(f".\\model_weights\\{bird.name}.npy", numpy_gene)                
+                        np.save(f".\\model_weights_2\\{bird.name}.npy", numpy_gene)                
 
         screen.fill(0)
 
