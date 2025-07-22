@@ -106,6 +106,52 @@ def mutation(chromosome_tensor: torch.Tensor):
 
 ## Setup
 
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Python 3.9+
+
+### Installation
+
+1. **Clone the repository:**
+
+```
+git clone https://github.com/SorawitChok/Flappy-Bird-AI-using-GA.git
+```
+
+2. **Create virtual environment:**
+
+```
+python -m venv env
+source env/bin/activate  # Linux/Mac
+env/Scripts/activate  # Windows
+```
+
+3. **Install dependencies:**
+
+```
+pip install -r requirements.txt
+```
+
+### Running the GA Training
+
+After installation, you can run the training script as follows:
+
+```
+python main.py
+```
+
+### Running the Demo
+
+You can also test the trained agent on the real game by running the following script:
+
+```
+python demo.py
+```
+
+Don't forget to change the model path to load your desired model weights version.
+
 ## References
 
 [1] Holland, J. H. (1992). [Genetic algorithms](https://www.jstor.org/stable/24939139). Scientific american, 267(1), 66-73
