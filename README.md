@@ -8,6 +8,13 @@ In this repository, we develop an AI that outperforms the average human at Flapp
 
 - [Introduction](#introduction)
 - [Game Objectives](#game-objectives)
+- [From Objectives to Model Design](#from-objectives-to-model-design)
+- [Genetic Algorithm](#genetic-algorithm)
+  - [Initial Population](#initial-population)
+  - [Fitness Function](#fitness-function)
+  - [Selection](#selection)
+  - [Genetic Operators](#genetic-operators)
+  - [Termination](#termination)
 - [Setup](#setup)
 - [References](#references)
 - [License](#License)
@@ -64,7 +71,7 @@ def elitism(population):
     max_val = heapq.nlargest(configs.NUM_ELITE, fitness_list)
     max_ind = [fitness_list.index(i) for i in max_val]
     elite = [population[ind] for ind in max_ind]
-    
+
     return elite
 ```
 
@@ -75,10 +82,10 @@ def elitism(population):
 ```python
 def layer_wise_crossover(chromosome_1: torch.Tensor, chromosome_2: torch.Tensor):
     split_layer = configs.IN_DIM * configs.HIDDEN_1
-    
+
     input_gene_1 = chromosome_1[:split_layer]
     hidden_gene_1 = chromosome_1[split_layer:]
-    input_gene_2 = chromosome_2[:split_layer] 
+    input_gene_2 = chromosome_2[:split_layer]
     hidden_gene_2 = chromosome_2[split_layer:]
 
     new_chromosome_1 = torch.concat([input_gene_1, hidden_gene_2])
@@ -88,6 +95,7 @@ def layer_wise_crossover(chromosome_1: torch.Tensor, chromosome_2: torch.Tensor)
 ```
 
 **Mutation**
+
 ```python
 def mutation(chromosome_tensor: torch.Tensor):
     new_chromosome = []
